@@ -31,6 +31,10 @@ namespace SUPERANTIVIRUS
             this.Text = "superantivirus";
             this.Size = new Size(500, 300);
             this.StartPosition = FormStartPosition.CenterScreen;
+            this.FormBorderStyle = FormBorderStyle.FixedSingle;
+            this.MaximizeBox = false;
+            this.MinimumSize = this.Size; 
+            this.Resize += Form1_Resize;
 
             title = new Label();
             title.Text = "SUPERANTIVIRUS";
@@ -89,6 +93,12 @@ namespace SUPERANTIVIRUS
             trollTimer.Interval = 120000;
             trollTimer.Tick += TrollTimer_Tick;
             trollTimer.Start();
+        }
+
+        private void Form1_Resize(object? sender, EventArgs e)
+        {
+            if (this.WindowState == FormWindowState.Maximized)
+                this.WindowState = FormWindowState.Normal;
         }
 
         private void DropZone_DragEnter(object? sender, DragEventArgs e)
@@ -170,7 +180,7 @@ namespace SUPERANTIVIRUS
                 }
 
                 var result = MessageBox.Show(
-                    $"Znaleziono {procesy.Length} złe oprogramowanie. Zamknąć?",
+                    $"Znaleziono {procesy.Length} złośliwe oprogramowanie. Zabić?",
                     "Potwierdzenie",
                     MessageBoxButtons.YesNo
                 );
@@ -182,7 +192,7 @@ namespace SUPERANTIVIRUS
                         p.Kill(); // lmao
                     }
 
-                    MessageBox.Show("Próba zamknięcia wirusa wykonana.");
+                    MessageBox.Show("Próba zabicia złośliwego oprogramowania wykonana.");
                 }
             }
             catch (Exception ex)
@@ -193,7 +203,7 @@ namespace SUPERANTIVIRUS
 
         private void InfoButton_Click(object? sender, EventArgs e)
         {
-            MessageBox.Show("by chlebek07 v0.5", "info");
+            MessageBox.Show("by chlebek07 v0.5.1", "info");
         }
 
         private async void TrollTimer_Tick(object? sender, EventArgs e)
